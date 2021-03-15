@@ -1,0 +1,12 @@
+Filesystem          1K-blocks    Used Available Use% Mounted on
+devtmpfs               914160       0    914160   0% /dev
+tmpfs                  931300       0    931300   0% /dev/shm
+tmpfs                  931300    9640    921660   2% /run
+tmpfs                  931300       0    931300   0% /sys/fs/cgroup
+/dev/mapper/cl-root   8374272 4666068   3708204  56% /
+/dev/sda1              999320  198248    732260  22% /boot
+tmpfs                  186260      28    186232   1% /run/user/42
+tmpfs                  186260    3492    182768   2% /run/user/1000
+/dev/sr1                59724   59724         0 100% /run/media/basic/VBox_GAs_6.1.18
+/dev/sr0                59724   59724         0 100% /run/media/basic/VBox_GAs_6.1.181
+WARNING: The following partitions are greater than or equal to 20% full: / /boot /run/media/basic/VBox_GAs_6.1.18 /run/media/basic/VBox_GAs_6.1.181

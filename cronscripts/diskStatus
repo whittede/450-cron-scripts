@@ -36,8 +36,8 @@ while read line; do
 		fi
 		
 		# If a disk is more full than the set threshold, alert the system and note it in the log.
-		if [[ $(($spaceUsed >= $alertLimit)) ]]; then
-			echo "WARNING: The partition stored at ${partition} is ${spaceUsedPrcnt}% full!"
+		if [ $spaceUsed -ge $alertLimit ]; then
+			echo "WARNING: The partition stored at ${partition} is ${spaceUsedPrcnt} full!"
 			fullDiskNames+=($partition)
 			fullDiskValues+=($spaceUsed)
 		fi
