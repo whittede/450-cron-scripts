@@ -1,0 +1,11 @@
+Filesystem     1K-blocks      Used Available Use% Mounted on
+rootfs         964144124 277884772 686259352  29% /
+none           964144124 277884772 686259352  29% /dev
+none           964144124 277884772 686259352  29% /run
+none           964144124 277884772 686259352  29% /run/lock
+none           964144124 277884772 686259352  29% /run/shm
+none           964144124 277884772 686259352  29% /run/user
+tmpfs          964144124 277884772 686259352  29% /sys/fs/cgroup
+C:\            964144124 277884772 686259352  29% /mnt/c
+D:\             11325436  10139184   1186252  90% /mnt/d
+WARNING: The following partitions are greater than or equal to 20% full: / /dev /run /run/lock /run/shm /run/user /sys/fs/cgroup /mnt/c /mnt/d

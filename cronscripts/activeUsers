@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# A script for logging which users are currently logged in and what resources they are using with their
+# processes.
+# as well as the
+# Created by Ethan Whitted (ewhitted17@georgefox.edu) and Ashley Rhoads (arhoads18@georgefox.edu)
+# Last modified 14-03-2021
+declare date=$(date +"%Y-%m-%d-%T")
+declare outputFilename="${date}_active-users.txt"
+declare saveLoc="../logs/${outputFilename}"
+ps -u "$(echo $(printf '%s\n' $(users) | sort -u))" o user= | sort | uniq -c | sort -rn > $saveLoc
