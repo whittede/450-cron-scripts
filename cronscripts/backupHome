@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# A script for backing up the entire home directory to a specified location.
+# Created by Ethan Whitted (ewhitted17@georgefox.edu) and Ashley Rhoads (arhoads18@georgefox.edu)
+# Last modified 14-03-2021
+declare date=$(date +"%Y-%m-%d-%T")
+declare outputFilename="${date}_home-backup.txt"
+declare saveLoc="../usermgmt/archive/home/${outputFilename}"
+tar -cf $saveLoc /home

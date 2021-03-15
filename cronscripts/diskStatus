@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# A script for outputing a list of all files on the system that are both world accessible and executable,
+# as well as the name of the user who owns each file.
+# Created by Ethan Whitted (ewhitted17@georgefox.edu) and Ashley Rhoads (arhoads18@georgefox.edu)
+# Last modified 14-03-2021
+declare date=$(date +"%Y-%m-%d-%T")
+declare outputFilename="${date}_disk-status.txt"
+declare saveLoc="../reports/${outputFilename}"
+declare defIFS=$IFS
+# Change the alertLimit to determine the point at which the program creates an alert for a become full.
+declare alertLimit=20
+
+df > $saveLoc
+fullDiskNames=();
+fullDiskValues=();
+# Instead of piping in, we are using process substitution to pass in the data from the df command. See
+# the end of this while loop on the line with 'done'
+while read line; do
+	# Only perform the following code on the lines that have a number with a percent listed.
+	if [[ $line =~ [0-9]+% ]]; then
+  		# Extract the xx% number using regex, then remove the number itself without the
+		# "%" character and save the number to its own variable.
+		spaceUsedPrcnt=${BASH_REMATCH[0]}
+		IFS="%"
+		read -a prcntArr <<< "$spaceUsedPrcnt"
+		spaceUsed=${prcntArr[0]}
+		IFS=$defIFS
+
+		# Now grab the file location of the partition we have just got the percentage for. 
+		if [[ $line =~ [0-9]+%[[:space:]]\/.* ]]; then
+			endOfLine=${BASH_REMATCH[0]}
+                	read -a lineEndArr <<< "$endOfLine"
+                	partition=${lineEndArr[1]}
+			IFS=$defIFS
+		fi
+		
+		# If a disk is more full than the set threshold, alert the system and note it in the log.
+		if [[ $(($spaceUsed >= $alertLimit)) ]]; then
+			echo "WARNING: The partition stored at ${partition} is ${spaceUsedPrcnt}% full!"
+			fullDiskNames+=($partition)
+			fullDiskValues+=($spaceUsed)
+		fi
+	fi
+done < <(df)
+
+if [[ $((${#fullDiskNames[@]} > 0)) ]]; then
+	echo "WARNING: The following partitions are greater than or equal to ${alertLimit}% full: ${fullDiskNames[@]}" >> $saveLoc
+fi

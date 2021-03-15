@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# A script for outputing a list of all files on the system that are both world accessible and executable,
+# as well as the name of the user who owns each file.
+# Created by Ethan Whitted (ewhitted17@georgefox.edu) and Ashley Rhoads (arhoads18@georgefox.edu)
+# Last modified 14-03-2021
+declare date=$(date +"%Y-%m-%d-%T")
+declare outputFilename="${date}_World-writable-executables.txt"
+declare saveLoc="../reports/${outputFilename}"
+echo "The following files are world writeable and world executable." > $saveLoc
+find / -executable -perm -o+w | while read file; do
+	owner=$(stat -c '%U' $file)
+	echo "${file} owned by ${owner}" >> $saveLoc
+done
